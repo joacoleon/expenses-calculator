@@ -1,7 +1,6 @@
 <template>
     <div class="input-area">
         <input :type="type" :name="name" :value="modelValue" @input="updateValue" required>
-        <div class="underline"></div>
         <div class="input-label">{{ label }}</div>
     </div>
 </template>
@@ -26,7 +25,7 @@ import {computed} from 'vue';
 const emit = defineEmits(['update:modelValue'])
 
 const updateValue = (event) => {
-    emit('update:modelValue', event.target.value)
+    emit('update:modelValue', event.target.value);
 }
 
 const name = computed(() => {
@@ -36,75 +35,36 @@ const name = computed(() => {
 
 <style scoped>
 .input-area {
-    height: 30px;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 4px;
     width: 100%;
-    position: relative;
+    /* border: 1px solid silver; */
 }
 
 input {
     height: 100%;
     width: 100%;
     font-size: 17px;
-    border: none;
-    border-bottom: 2px solid silver;
+    border: 2px solid silver;
+    border-radius: 3px;
+    padding: 4px 5px;
     color: black;
+    /* background-color: rgba(255, 255, 255, 0); */
+    
 }
 
 input:focus {
     caret-color: black;
+    border-color: black;
 }
 
 .input-label {
-    position: absolute;
-    bottom: 10px;
-    left: 0;
     color: silver;
-    pointer-events: none;
-    transition: all 0.3s ease;
-}
-
-input:focus~.input-label,
-input:valid~.input-label {
-    transform: translateY(-20px);
-    font-size: 15px;
+    font-size: 14px;
 }
 
 input:focus~.input-label {
     color: black;
-}
-
-.underline {
-    position: absolute;
-    bottom: 0px;
-    height: 2px;
-    width: 100%;
-}
-
-.underline::before {
-    position: absolute;
-    content: "";
-    height: 100%;
-    width: 100%;
-    background: black;
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
-}
-
-input:focus~.underline::before,
-input:focus~.underline::before {
-    transform: scaleX(1);
-}
-
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-/* Firefox */
-input[type=number] {
-    -moz-appearance: textfield;
-    appearance: textfield;
 }
 </style>
